@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-gold: #34d399;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  font-family: "Poppins", var(--font-sans);
+  background-color: #FAFCF9;
+  color: #1F2937;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .lg-force-nowrap {
+    white-space: nowrap !important;
+    text-wrap: nowrap !important;
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.reveal-left { transform: translateX(-36px); }
+.reveal.reveal-right { transform: translateX(36px); }
+.reveal.reveal-zoom { transform: scale(0.94); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .reveal.reveal-left,
+  .reveal.reveal-right {
+    transform: translateY(20px);
+  }
+}
+
+/* Global scroll reveal applied by App (no per-component wiring needed) */
+.rv { opacity: 0; }
+.rv-in { animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: var(--rv-delay, 0ms); }
+
+/* ---------- Keyframes ---------- */
+@keyframes kenburns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(-0.5%, -0.5%, 0); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bar-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes scroll-dot {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.12); }
+}
+@keyframes draw {
+  from { stroke-dashoffset: 300; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes grow-x {
+  to { transform: scaleX(1); }
+}
+@keyframes clip-reveal {
+  from { clip-path: inset(0 0 100% 0 round 1.5rem); }
+  to { clip-path: inset(0 0 0 0 round 1.5rem); }
+}
+@keyframes marquee-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-kenburns { animation: kenburns 16s ease-in-out infinite alternate; }
+.animate-float { animation: float-y 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-y 9s ease-in-out infinite; }
+.animate-fade-up { opacity: 0; animation: fade-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+.animate-glow { animation: glow-pulse 7s ease-in-out infinite; }
+.animate-marquee { animation: marquee 40s linear infinite; }
+.animate-marquee-rev { animation: marquee 46s linear infinite reverse; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-clip-reveal { animation: clip-reveal 1.3s cubic-bezier(0.22, 0.8, 0.2, 1) 0.2s both; }
+.animate-marquee-y { animation: marquee-y 55s linear infinite; }
+.animate-marquee-y-rev { animation: marquee-y 65s linear infinite reverse; }
+
+/* Subtle architectural grid used on dark sections */
+.bg-grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Gold gradient text for accent words on dark backgrounds */
+.text-gold-gradient {
+  background: linear-gradient(100deg, #a7f3d0 0%, #34d399 50%, #059669 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  padding-bottom: 0.22em;
+  padding-right: 0.18em;
+  margin-bottom: -0.22em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .rv { opacity: 1; }
+  .rv-in { animation: none; }
+  .animate-kenburns, .animate-float, .animate-float-slow, .animate-glow, .animate-marquee, .animate-marquee-rev, .animate-marquee-y, .animate-marquee-y-rev { animation: none; }
+  .animate-fade-up { opacity: 1; animation: none; }
+  .animate-clip-reveal { animation: none; }
+}
+
+.text-outline { -webkit-text-stroke: 1.5px rgba(52,211,153,0.55); color: transparent; }
+.text-outline-dark { -webkit-text-stroke: 1.5px rgba(13, 59, 46, 0.25); color: transparent; }
+.text-outline-green { -webkit-text-stroke: 2px #0D3B2E; color: transparent; }
+
+/* Thin reading-progress bar (scroll-driven; ignored by browsers without support) */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 60; height: 3px; width: 100%;
+  background: linear-gradient(90deg, #059669, #34d399);
+  transform-origin: 0 50%; transform: scaleX(0);
+  animation: grow-x linear both; animation-timeline: scroll(root);
+}
+@media (prefers-reduced-motion: reduce) { .scroll-progress { display: none; } }
+
+/* 3D Flip Card */
+.flip-card {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner,
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
